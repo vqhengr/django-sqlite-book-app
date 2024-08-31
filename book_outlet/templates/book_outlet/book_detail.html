@@ -1,0 +1,63 @@
+{% extends "book_outlet/base.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Book Title -->
+    <h2 class="center-align">{{ book.title }}</h2>
+    
+    <!-- Book Image (Uncomment if image field is used) -->
+    <!-- <div class="center-align">
+        <img src="{{ book.image.url }}" alt="{{ book.title }}" class="responsive-img">
+    </div> -->
+
+    <!-- Author, Rating, and Bestseller Badge -->
+    <div class="section">
+        <h5>by {{ book.author }}</h5>
+        <div class="rating">
+            {% for i in "12345" %}
+                {% if i <= book.rating %}
+                    <i class="material-icons amber-text">star</i>
+                {% else %}
+                    <i class="material-icons grey-text">star_border</i>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% if book.is_bestseller %}
+            <span class="new badge red" data-badge-caption="Bestseller"></span>
+        {% endif %}
+    </div>
+
+    <!-- Price, Publisher, and Publication Date -->
+    <div class="section">
+        <h6>Price: <span class="green-text">${{ book.price }}</span></h6>
+        <h6>Publisher: {{ book.publisher }}</h6>
+        <h6>Publication Date: {{ book.publication_date }}</h6>
+    </div>
+
+    <!-- ISBN and Stock Information -->
+    <div class="section">
+        <h6>ISBN: {{ book.isbn }}</h6>
+        <h6>Stock: 
+            {% if book.stock > 0 %}
+                <span class="green-text">{{ book.stock }} available</span>
+            {% else %}
+                <span class="red-text">Out of stock</span>
+            {% endif %}
+        </h6>
+    </div>
+
+    <!-- Description -->
+    <div class="section">
+        <h5>Description</h5>
+        <p class="flow-text">{{ book.description }}</p>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="section">
+        <p class="grey-text">Created at: {{ book.created_at }}</p>
+        <p class="grey-text">Last updated: {{ book.updated_at }}</p>
+    </div>
+</div>
+{% endblock %}

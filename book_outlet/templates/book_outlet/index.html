@@ -1,0 +1,32 @@
+{% extends "book_outlet/base.html" %}
+
+{% block title %}All Books{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="center-align">Welcome to the Book Outlet!</h2>
+        <p class="flow-text">Discover our collection of books below:</p>
+
+        <!-- Book List -->
+        <ul class="collection">
+            {% for book in books %}
+            <li class="collection-item">
+                <a href="{% url 'book_detail' book.id %}" class="black-text">
+                    <span class="title"><strong>{{ book.title }}</strong></span>
+                    <p>by {{ book.author }}</p>
+                    <div class="rating">
+                        {% for i in "12345" %}
+                            {% if i <= book.rating %}
+                                <i class="material-icons amber-text">star</i>
+                            {% else %}
+                                <i class="material-icons grey-text">star_border</i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </a>
+            </li>
+
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
